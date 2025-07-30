@@ -12,6 +12,15 @@
 .swiftpm/
 migrate_working_dir/
 
+# Environment variables and sensitive files
+.env
+.env.local
+.env.production
+.env.staging
+firebase_options.dart
+google-services.json
+GoogleService-Info.plist
+
 # IntelliJ related
 *.iml
 *.ipr
