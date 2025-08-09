@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'tattoo_form.dart';
 import 'my_requests.dart';
+import 'user_profile.dart';
 
 class HomePage extends StatelessWidget {
   final User? user;
@@ -11,16 +12,54 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Welcome to InkQuest'),
-        backgroundColor: Colors.black87,
-        elevation: 0,
+        title: const Text(
+          'InkQuest',
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+            fontSize: 24,
+          ),
+        ),
+        backgroundColor: Colors.purple,
+        elevation: 4,
+        centerTitle: true,
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.person, color: Colors.white),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const UserProfilePage(),
+                ),
+              );
+            },
+            tooltip: 'My Profile',
+          ),
+          IconButton(
+            icon: const Icon(Icons.list, color: Colors.white),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => MyRequestsPage()),
+              );
+            },
+            tooltip: 'My Consultations',
+          ),
+        ],
       ),
       body: Container(
         decoration: const BoxDecoration(
           gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [Colors.black87, Colors.purple],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            stops: [0.0, 0.3, 0.7, 1.0],
+            colors: [
+              Color(0xFF1A1A2E),
+              Color(0xFF16213E),
+              Color(0xFF533483),
+              Color(0xFF8E4EC6),
+            ],
           ),
         ),
         child: Center(
@@ -75,38 +114,18 @@ class HomePage extends StatelessWidget {
                   );
                 },
               ),
-              const SizedBox(height: 16),
-              ElevatedButton.icon(
-                icon: const Icon(Icons.list, color: Colors.white),
-                label: const Text('My Consultations'),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.purple,
-                  foregroundColor: Colors.white,
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 32,
-                    vertical: 16,
-                  ),
-                  textStyle: const TextStyle(fontSize: 18),
-                ),
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => MyRequestsPage()),
-                  );
-                },
-              ),
-              const SizedBox(height: 32),
+              const SizedBox(height: 24),
               ElevatedButton.icon(
                 icon: const Icon(Icons.logout, color: Colors.white),
                 label: const Text('Sign Out'),
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.black54,
+                  backgroundColor: Colors.red.shade600,
                   foregroundColor: Colors.white,
                   padding: const EdgeInsets.symmetric(
                     horizontal: 32,
-                    vertical: 16,
+                    vertical: 12,
                   ),
-                  textStyle: const TextStyle(fontSize: 18),
+                  textStyle: const TextStyle(fontSize: 16),
                 ),
                 onPressed: () async {
                   await FirebaseAuth.instance.signOut();

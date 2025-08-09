@@ -14,11 +14,11 @@ class _SignUpState extends State<SignUp> {
 
   Future<void> _signUp() async {
     try {
-      UserCredential userCredential =
-          await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: _emailController.text,
-        password: _passwordController.text,
-      );
+      UserCredential userCredential = await FirebaseAuth.instance
+          .createUserWithEmailAndPassword(
+            email: _emailController.text,
+            password: _passwordController.text,
+          );
       // User successfully signed up, now showing the success message
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
@@ -37,10 +37,7 @@ class _SignUpState extends State<SignUp> {
         errorMessage = 'The account already exists for that email.';
       }
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(errorMessage),
-          backgroundColor: Colors.red,
-        ),
+        SnackBar(content: Text(errorMessage), backgroundColor: Colors.red),
       );
     } catch (e) {
       print('Sign up error: $e');
@@ -63,9 +60,15 @@ class _SignUpState extends State<SignUp> {
       body: Container(
         decoration: const BoxDecoration(
           gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [Colors.black87, Colors.purple],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            stops: [0.0, 0.3, 0.7, 1.0],
+            colors: [
+              Color(0xFF1A1A2E),
+              Color(0xFF16213E),
+              Color(0xFF533483),
+              Color(0xFF8E4EC6),
+            ],
           ),
         ),
         child: Column(

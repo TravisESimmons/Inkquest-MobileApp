@@ -17,15 +17,27 @@ class ConsultationDetailPage extends StatelessWidget {
         : <String>[];
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Consultation Details'),
-        backgroundColor: Colors.black87,
+        title: const Text(
+          'Consultation Details',
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+        ),
+        backgroundColor: Colors.purple,
+        elevation: 4,
+        centerTitle: true,
+        iconTheme: const IconThemeData(color: Colors.white),
       ),
       body: Container(
         decoration: const BoxDecoration(
           gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [Colors.black87, Colors.purple],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            stops: [0.0, 0.3, 0.7, 1.0],
+            colors: [
+              Color(0xFF1A1A2E),
+              Color(0xFF16213E),
+              Color(0xFF533483),
+              Color(0xFF8E4EC6),
+            ],
           ),
         ),
         child: ListView(
@@ -219,10 +231,10 @@ class _MyRequestsPageState extends State<MyRequestsPage> {
     print('DEBUG: Current user ID: ${user.uid}');
 
     try {
+      // Temporary fix: Remove orderBy to avoid index requirement
       final snapshot = await FirebaseFirestore.instance
           .collection('submissions')
           .where('userId', isEqualTo: user.uid)
-          .orderBy('submittedAt', descending: true)
           .get();
 
       print('DEBUG: Found ${snapshot.docs.length} submissions');
@@ -253,58 +265,42 @@ class _MyRequestsPageState extends State<MyRequestsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('My Consultations'),
-        backgroundColor: Colors.black87,
-        elevation: 0,
-        leading: Builder(
-          builder: (context) {
-            final canPop = Navigator.of(context).canPop();
-            return PopupMenuButton<String>(
-              icon: const Icon(Icons.menu, color: Colors.white),
-              color: Colors.black87,
-              onSelected: (value) {
-                if (value == 'back' && canPop) {
-                  Navigator.of(context).maybePop();
-                } else if (value == 'home') {
-                  Navigator.of(context).pushAndRemoveUntil(
-                    MaterialPageRoute(
-                      builder: (context) =>
-                          HomePage(user: FirebaseAuth.instance.currentUser),
-                    ),
-                    (route) => false,
-                  );
-                }
-              },
-              itemBuilder: (context) => [
-                if (canPop)
-                  const PopupMenuItem<String>(
-                    value: 'back',
-                    child: ListTile(
-                      leading: Icon(Icons.arrow_back, color: Colors.white),
-                      title: Text(
-                        'Back',
-                        style: TextStyle(color: Colors.white),
-                      ),
-                    ),
-                  ),
-                const PopupMenuItem<String>(
-                  value: 'home',
-                  child: ListTile(
-                    leading: Icon(Icons.home, color: Colors.white),
-                    title: Text('Home', style: TextStyle(color: Colors.white)),
-                  ),
-                ),
-              ],
-            );
-          },
+        title: const Text(
+          'My Consultations',
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
         ),
+        backgroundColor: Colors.purple,
+        elevation: 4,
+        centerTitle: true,
+        iconTheme: const IconThemeData(color: Colors.white),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.home, color: Colors.white),
+            onPressed: () {
+              Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(
+                  builder: (context) =>
+                      HomePage(user: FirebaseAuth.instance.currentUser),
+                ),
+                (route) => false,
+              );
+            },
+            tooltip: 'Home',
+          ),
+        ],
       ),
       body: Container(
         decoration: const BoxDecoration(
           gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [Colors.black87, Colors.purple],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            stops: [0.0, 0.3, 0.7, 1.0],
+            colors: [
+              Color(0xFF1A1A2E),
+              Color(0xFF16213E),
+              Color(0xFF533483),
+              Color(0xFF8E4EC6),
+            ],
           ),
         ),
         child: FutureBuilder<List<Map<String, dynamic>>>(
