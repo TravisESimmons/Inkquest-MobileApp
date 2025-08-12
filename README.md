@@ -140,4 +140,4 @@ This project is licensed under the MIT License.
 
 ---
 
-*For more information or questions, please contact me at Travisesimmons@gmail.com(
+*For more information or questions, please contact me at Travisesimmons@gmail.com*
